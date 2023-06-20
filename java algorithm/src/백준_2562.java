@@ -4,20 +4,23 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
-public class Main {
+public class 백준_2562 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        int num = 0;
+        int maxNum = -1;
+        int position = -1;
 
-        String[] strList = str.split(" ");
-        for(int i=0;i<strList.length;i++) {
-            if(strList[i].length() == 0) {
-                num++;
+        for(int i = 0; i < 9; i++) {
+            int num = Integer.parseInt(br.readLine());
+            if(num > maxNum) {
+                maxNum = num;
+                position = i;
             }
         }
-        System.out.println(strList.length - num);
+        position++;
+        System.out.println(maxNum);
+        System.out.println(position);
     }
 
     public static void main(String[] args) throws Exception {
