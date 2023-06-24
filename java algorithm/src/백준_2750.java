@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class 백준_2750 {
 
     public int[] bubble_sort(int[] arr) {
         int[] result = arr;
