@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class 백준_1181 {
 
     public boolean compare(String a, String b) {
         int aLen = a.length();
