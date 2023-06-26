@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class Main {
+public class 백준_14425 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
