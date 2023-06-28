@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_10870 {
     private int fibonachi(int n) {
         if(n==1){
             return 1;

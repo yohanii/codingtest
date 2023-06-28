@@ -6,21 +6,20 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
-    private int fibonachi(int n) {
-        if(n==1){
-            return 1;
-        } else if (n==0) {
-            return 0;
-        }
+public class 백준_27433 {
 
-        return fibonachi(n-1) + fibonachi(n-2);
+    private Long pactorial(Long n) {
+        Long result;
+        if(n == 1 || n == 0) return new Long(1);
+
+        result = n * pactorial(n-1);
+        return result;
     }
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
-        System.out.println(fibonachi(n));
+        Long n = Long.parseLong(br.readLine());
+        System.out.println(pactorial(n));
     }
 
     public static void main(String[] args) throws Exception {
