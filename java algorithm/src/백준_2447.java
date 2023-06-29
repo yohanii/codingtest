@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_2447 {
 
     public void draw(int i, int j, int num) {
         if((i/num)%3 == 1 && (j/num)%3 == 1) {
