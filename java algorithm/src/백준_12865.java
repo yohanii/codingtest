@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_12865 {
 
     public Integer[][] dp;
     public int[] W;
