@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_1920 {
     static void check(int n, int start, int end, ArrayList<Integer> arr) {
         // 0 ~ len/2, len/2+1 ~ len-1
         // start ~ (start+end)/2, (start+end)/2+1 ~ end
