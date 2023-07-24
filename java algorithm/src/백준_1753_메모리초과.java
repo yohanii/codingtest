@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_1753_메모리초과 {
 
     static int[] dijkstra(int V, int start, int[][] weight) {
         int i;
