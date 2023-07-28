@@ -9,27 +9,22 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_27866 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-
-        HashMap<String, String> map = new HashMap<>();
-
-        for(int i = 0; i < N; i++){
-            st = new StringTokenizer(br.readLine());
-            map.put(st.nextToken(), st.nextToken());
-        }
+        String str = br.readLine();
+        int index = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < M; i++){
-            sb.append(map.get(br.readLine())).append("\n");
-        }
+        sb.append(str.charAt(index-1));
+
         System.out.println(sb);
+
+
+
+
     }
 
     public static void main(String[] args) throws Exception {
