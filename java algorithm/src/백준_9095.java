@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_9095 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
