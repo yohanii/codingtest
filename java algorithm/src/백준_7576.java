@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 
 
-public class Main {
+public class 백준_7576 {
     static int[][] map;
     static int N, M;
     static Queue<int[]> queue = new LinkedList<>();
