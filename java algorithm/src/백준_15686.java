@@ -1,15 +1,9 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.Inet4Address;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
-
-public class Main {
+public class 백준_15686 {
     static ArrayList<Pos> house = new ArrayList<>();
     static ArrayList<Pos> chicken = new ArrayList<>();
     static int N, M;
