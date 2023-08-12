@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class 백준_1991 {
 
     static int n;
     static int[][] arr;
