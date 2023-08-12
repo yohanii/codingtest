@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class 백준_11725 {
     static int N;
     static int[] parent;
     static ArrayList<Integer>[] edge;
@@ -38,7 +38,7 @@ public class Main {
 
         edge = new ArrayList[N+1];
         for(int i = 1; i< N+1; i++){
-           edge[i] = new ArrayList<>();
+            edge[i] = new ArrayList<>();
         }
 
         for(int i = 0; i < N-1; i++) {
