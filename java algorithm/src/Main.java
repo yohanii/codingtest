@@ -5,96 +5,87 @@ import java.util.stream.IntStream;
 
 
 public class Main {
+    static int N, M;
+    static int[][] graph;
 
-    static int n;
-    static int[][] arr;
-    static int[] visited;
+    public static void dijkstra(int start, int end) {
+        //start부터의 거리
+        int[] dis = new int[N+1];
+        int[] visited = new int[N+1];
+        int min = Integer.MAX_VALUE;
+        int minIndex = 0;
+        int currentIndex;
 
-    public static void dfs1(int index) {
-        visited[index] = 1;
-        System.out.print((char)(index+65));
-
-        for(int i = 0; i < 2; i++){
-            int eleIndex = arr[index][i+1];
-//            System.out.println(eleIndex);
-            if(eleIndex != -1 && visited[eleIndex] != 1){
-                dfs1(eleIndex);
+        Arrays.fill(dis, Integer.MAX_VALUE);
+        dis[start] = 0;
+        for(int i = 0; i < N; i++){
+            if(graph[start][i+1] != 0){
+                dis[i+1] = graph[start][i+1];
             }
         }
-    }
+        visited[0] = 1;
+        visited[start] = 1;
 
-    public static void dfs2(int index){
-        int eleIndex = arr[index][1];
-        if(eleIndex != -1 && visited[eleIndex] != 1){
-            dfs2(eleIndex);
-        }
-
-        visited[index] = 1;
-        System.out.print((char)(index+65));
-
-        eleIndex = arr[index][2];
-        if(eleIndex != -1 && visited[eleIndex] != 1){
-            dfs2(eleIndex);
-        }
-    }
-
-    public static void dfs3(int index){
-        for(int i = 0; i < 2; i++){
-            int eleIndex = arr[index][i+1];
-            if(eleIndex != -1 && visited[eleIndex] != 1){
-                dfs3(eleIndex);
+        for(int i = 1; i < N+1; i++){
+            if(dis[i] < min && i != start){
+                min = dis[i];
+                minIndex = i;
             }
         }
+        currentIndex = minIndex;
 
-        visited[index] = 1;
-        System.out.print((char)(index+65));
+        while(true){
+            //거리 업데이트
+            visited[currentIndex] = 1;
+            for(int i = 1; i < N+1; i++) {
+                if(graph[currentIndex][i] != 0 && dis[i] > dis[currentIndex] + graph[currentIndex][i]){
+                    dis[i] = dis[currentIndex] + graph[currentIndex][i];
+                }
+            }
+
+            //visited 체크하고 모두 방문했을 시 break
+            Boolean allVisited = true;
+            for(int ele: visited){
+                if(ele == 0) allVisited = false;
+            }
+            if(allVisited) break;
+
+            //비용 작은 곳 방문
+            min = Integer.MAX_VALUE;
+            for(int i = 1; i < N+1; i++){
+                if(dis[i] < min && i != currentIndex && visited[i] == 0){
+                    min = dis[i];
+                    minIndex = i;
+                }
+            }
+            currentIndex = minIndex;
+        }
+        for(int ele: dis) System.out.println(ele);
+        System.out.println(dis[end]);
     }
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //'A' - 65, '.' - 46
+        StringTokenizer st;
 
-        n = Integer.parseInt(br.readLine());
-        arr = new int[n][3];
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
 
-        for(int i = 0; i < n; i++) {
-            Arrays.fill(arr[i], -1);
+        graph = new int[N+1][N+1];
+
+        for(int i = 0; i < M; i++){
+            st = new StringTokenizer(br.readLine());
+
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            graph[start][end] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i = 0; i < n; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int parent = (int)st.nextToken().charAt(0);
+        st = new StringTokenizer(br.readLine());
+        int start = Integer.parseInt(st.nextToken());
+        int end = Integer.parseInt(st.nextToken());
 
-            int left = (int)st.nextToken().charAt(0);
-            int right = (int)st.nextToken().charAt(0);
-
-            if(left != 46) {
-                arr[parent - 65][1] = left - 65;
-                arr[left-65][0] = parent - 65;
-            }
-            if(right != 46) {
-                arr[parent - 65][2] = right - 65;
-                arr[right - 65][0] = parent - 65;
-            }
-        }
-
-//        for(int i = 0; i < n; i++) {
-//            for(int j = 0; j < 3; j++){
-//                System.out.print(arr[i][j] + " ");
-//            }
-//            System.out.println("");
-//        }
-
-        visited = new int[n];
-        dfs1(0);
-        System.out.println("");
-
-        visited = new int[n];
-        dfs2(0);
-        System.out.println("");
-
-        visited = new int[n];
-        dfs3(0);
+        dijkstra(start, end);
     }
 
     public static void main(String[] args) throws Exception {
