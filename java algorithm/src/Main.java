@@ -5,87 +5,65 @@ import java.util.stream.IntStream;
 
 
 public class Main {
-    static int N, M;
+    static int V, E;
     static int[][] graph;
+    static boolean[] visited;
+    static int minDis;
 
-    public static void dijkstra(int start, int end) {
-        //start부터의 거리
-        int[] dis = new int[N+1];
-        int[] visited = new int[N+1];
-        int min = Integer.MAX_VALUE;
-        int minIndex = 0;
-        int currentIndex;
+    public void dfs(int index, int dis) {
+//        System.out.println(index);
+        visited[index] = true;
 
-        Arrays.fill(dis, Integer.MAX_VALUE);
-        dis[start] = 0;
-        for(int i = 0; i < N; i++){
-            if(graph[start][i+1] != 0){
-                dis[i+1] = graph[start][i+1];
+        //1~V를 모두 방문 시 이동 거리를 기록
+        boolean isAllVisited = true;
+        for(int i = 1; i < V+1; i++) {
+            if(visited[i] == false)
+                isAllVisited = false;
+        }
+        if(isAllVisited){
+            if(minDis > dis)
+                minDis = dis;
+            return;
+        }
+
+        for(int i = 1; i < V+1; i++){
+            if(!visited[i] && graph[index][i] != Integer.MAX_VALUE){
+                dfs(i, dis + graph[index][i]);
             }
         }
-        visited[0] = 1;
-        visited[start] = 1;
-
-        for(int i = 1; i < N+1; i++){
-            if(dis[i] < min && i != start){
-                min = dis[i];
-                minIndex = i;
-            }
-        }
-        currentIndex = minIndex;
-
-        while(true){
-            //거리 업데이트
-            visited[currentIndex] = 1;
-            for(int i = 1; i < N+1; i++) {
-                if(graph[currentIndex][i] != 0 && dis[i] > dis[currentIndex] + graph[currentIndex][i]){
-                    dis[i] = dis[currentIndex] + graph[currentIndex][i];
-                }
-            }
-
-            //visited 체크하고 모두 방문했을 시 break
-            Boolean allVisited = true;
-            for(int ele: visited){
-                if(ele == 0) allVisited = false;
-            }
-            if(allVisited) break;
-
-            //비용 작은 곳 방문
-            min = Integer.MAX_VALUE;
-            for(int i = 1; i < N+1; i++){
-                if(dis[i] < min && i != currentIndex && visited[i] == 0){
-                    min = dis[i];
-                    minIndex = i;
-                }
-            }
-            currentIndex = minIndex;
-        }
-        for(int ele: dis) System.out.println(ele);
-        System.out.println(dis[end]);
+        visited[index] = false;
     }
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        N = Integer.parseInt(br.readLine());
-        M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        V = Integer.parseInt(st.nextToken());
+        E = Integer.parseInt(st.nextToken());
 
-        graph = new int[N+1][N+1];
+        graph = new int[V+1][V+1];
+        for(int[] a: graph) Arrays.fill(a, Integer.MAX_VALUE);
 
-        for(int i = 0; i < M; i++){
+        for(int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
-
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-            graph[start][end] = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
+
+            graph[start][end] = weight;
+            graph[end][start] = weight;
         }
 
-        st = new StringTokenizer(br.readLine());
-        int start = Integer.parseInt(st.nextToken());
-        int end = Integer.parseInt(st.nextToken());
+        minDis = Integer.MAX_VALUE;
 
-        dijkstra(start, end);
+        //출발지점을 모두 돌면서 min값 얻기.
+        for(int i = 0; i < V+1; i++) {
+            visited = new boolean[V + 1];
+            dfs(1, 0);
+        }
+
+        System.out.println(minDis);
     }
 
     public static void main(String[] args) throws Exception {
