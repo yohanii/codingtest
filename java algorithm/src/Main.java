@@ -1,51 +1,44 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import static java.util.stream.Collectors.*;
+
 
 public class Main {
+
+    class Song implements Comparable<Song> {
+
+        @Override
+        public int compareTo(Song o) {
+            return 0;
+        }
+    }
+
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        int n = Integer.parseInt(br.readLine());
-        Long[] arr = new Long[n];
+        int answer = 1;
 
-        st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < n; i++) {
-            arr[i] = Long.parseLong(st.nextToken());
-        }
+        String[][] arr = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
 
-        Long minVal = Long.MAX_VALUE;
-        int start = 0;
-        int end = n-1;
-        int[] indexSave = new int[2];
+        answer = Arrays.stream(arr)
+                .collect(groupingBy(p -> p[1], mapping(p -> p[0], counting())))
+                .values()
+                .stream()
+                .collect(reducing(1L, (x, y) -> x * (y + 1))).intValue() - 1;
 
-        while(true) {
-            if(start == end)
-                break;
+        System.out.println();
 
-            Long sum = arr[start] + arr[end];
-
-            if(Math.abs(sum) < minVal){
-                minVal = Math.abs(sum);
-                indexSave[0] = start;
-                indexSave[1] = end;
-            }
-
-            if(sum < 0) {
-                start++;
-            } else if(sum > 0){
-                end--;
-            } else {
-                break;
-            }
-        }
-
-        System.out.print(arr[indexSave[0]] + " " + arr[indexSave[1]]);
+        ArrayList<Integer> arrr = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        Character chr;
+        stack.size();
+        Queue<Integer> queue = new LinkedList<>();
     }
-
     public static void main(String[] args) throws Exception {
         new Main().solution();
     }
