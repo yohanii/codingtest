@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.*;
 
 
-public class Main {
+public class 백준_14940 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
