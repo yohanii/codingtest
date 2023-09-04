@@ -21,23 +21,29 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        int answer = 1;
+        String str1 = "00000";
+        String str2 = "hel";
 
-        String[][] arr = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
+        System.out.println(str1.contains(str2));
+        System.out.println(str1.contains("helle"));
 
-        answer = Arrays.stream(arr)
-                .collect(groupingBy(p -> p[1], mapping(p -> p[0], counting())))
-                .values()
-                .stream()
-                .collect(reducing(1L, (x, y) -> x * (y + 1))).intValue() - 1;
+        System.out.println(Integer.parseInt(str1));
+        Integer[] arr = {1,2,3,4,5};
+        Arrays.sort(arr);
+        Integer[] abc = new Integer[]{1,3,2};
+        Arrays.sort(abc);
+        System.out.println(abc);
 
-        System.out.println();
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(arr));
+        int[] ar = list.stream().mapToInt(i -> i.intValue()).toArray();
+        Integer[] vv = list.toArray(new Integer[list.size()]);
 
-        ArrayList<Integer> arrr = new ArrayList<>();
-        Stack<Integer> stack = new Stack<>();
-        Character chr;
-        stack.size();
-        Queue<Integer> queue = new LinkedList<>();
+        for(int i : vv){
+            System.out.println(i);
+        }
+        Arrays.stream(ar).boxed().toArray(Integer[]::new);
+        Arrays.stream(vv).mapToInt(i -> i.intValue()).toArray();
+
     }
     public static void main(String[] args) throws Exception {
         new Main().solution();
