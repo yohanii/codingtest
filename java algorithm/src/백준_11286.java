@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 
-public class Main {
+public class 백준_11286 {
 
     class Num implements Comparable<Num> {
         int n;
@@ -31,7 +31,7 @@ public class Main {
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
-        //queue.
+        //PriorityQueue.
         //우선순위 : 1. 절댓값, 2. 작은 수
         PriorityQueue<Num> queue = new PriorityQueue<>();
 
