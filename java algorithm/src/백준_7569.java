@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 
-public class Main {
+public class 백준_7569 {
     class Tomato {
         int x;
         int y;
