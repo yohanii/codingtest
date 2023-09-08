@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 
-public class Main {
+public class 백준_9375 {
 
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
