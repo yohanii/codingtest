@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class 백준_7662 {
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
-        //List로 구현
-        //값 들어오면 적절한 위치 찾아서 넣기
+        //TreeMap으로 구현
+        //remove시 같은 해당 key 다 지워지기 때문에, 들어가 있는 개수를 value에 저장 시켜놨다.
         int t = Integer.parseInt(br.readLine());
 
         while(t-- > 0) {
