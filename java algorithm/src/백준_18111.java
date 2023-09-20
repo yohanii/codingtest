@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class 백준_18111 {
     public int getTime(int[][] map, int height, int b) {
         int time = 0;
         int block = b;
