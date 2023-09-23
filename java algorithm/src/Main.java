@@ -8,43 +8,27 @@ import java.util.stream.IntStream;
 
 public class Main {
 
-    static int n, m, x;
-    static int[][] map, result;
+    static int n, m;
+    static ArrayList[] graph;
+    static int[][] result;
 
-    public static int dijkstra(int start) {
-        int index = start;
+    public static void dijkstra(int start) {
         int[] visited = new int[n+1];
 
+        int prev = start;
+        int index = start;
         while(index != -1) {
-//            System.out.println(index);
-            visited[index] = 1;
-            //업데이트
-            for (int i = 1; i < n + 1; i++) {
-                if (map[index][i] == 0)
-                    continue;
+            //거리 업데이트
+            for(Object e: graph[index]) {
+                int[] elem = (int[]) e;
 
-                int len = map[index][i] + result[start][index];
-                if (visited[i] == 0 && len < result[start][i]) {
-                    result[start][i] = len;
-                }
+                System.out.println(elem[0] + " " + elem[1]);
             }
 
-            //갈 수 있는 길 중 result 값 가장 작은 것 골라서 index에 넣기
-            int minIndex = index;
-            int min = Integer.MAX_VALUE;
-            for (int i = 1; i < n + 1; i++) {
-                if (visited[i] == 0 && result[start][i] < min) {
-                    minIndex = i;
-                    min = result[start][i];
-                }
-            }
-            if (minIndex == index)
-                index = -1;
-            else
-                index = minIndex;
+            //다음 index
+            break;
         }
 
-        return 0;
     }
 
     public void solution() throws Exception {
@@ -52,62 +36,40 @@ public class Main {
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        x = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(br.readLine());
+        m = Integer.parseInt(br.readLine());
 
-        map = new int[n+1][n+1];
+        graph = new ArrayList[n+1];
+        for(int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<int[]>();
+        }
+
         result = new int[n+1][n+1];
+        for(int i = 1; i < n+1; i++) {
+            Arrays.fill(result[i], Integer.MAX_VALUE);
+            result[i][i] = 0;
+        }
         for(int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
+
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
             int cost = Integer.parseInt(st.nextToken());
 
-            map[start][end] = cost;
+            //나중에 더 작은 값 들어올때만 바꿔주기
+            graph[start].add(new int[]{end, cost});
+            result[start][end] = cost;
         }
 
-        int maxCost = Integer.MIN_VALUE;
-        for(int i = 0; i < n+1; i++) {
-            Arrays.fill(result[i], Integer.MAX_VALUE);
-            for(int j = 0; j < n+1; j++){
-                if(map[i][j] != 0)
-                    result[i][j] = map[i][j];
+        //print map
+        for(int i = 1; i < result.length; i++){
+            for(int j = 1; j < result.length; j++){
+                System.out.print(result[i][j] + " ");
             }
-            result[i][i] = 0;
+            System.out.println("");
         }
 
-        for(int i = 1; i < n+1; i++) {
-            dijkstra(i);
-        }
-
-        for(int i = 1; i < n+1; i++) {
-            int sum = result[i][x] + result[x][i];
-            if(sum > maxCost)
-                maxCost = sum;
-        }
-//        dijkstra(x);
-
-
-//        //map
-//        for(int i = 1; i < n+1; i++){
-//            for(int j = 1; j < n+1; j++) {
-//                System.out.print(map[i][j] + " ");
-//            }
-//            System.out.println("");
-//        }
-//        System.out.println("");
-//
-//        //result
-//        for(int i = 1; i < n+1; i++){
-//            for(int j = 1; j < n+1; j++) {
-//                System.out.print(result[i][j] + " ");
-//            }
-//            System.out.println("");
-//        }
-
-        System.out.println(maxCost);
+        dijkstra(1);
 
     }
     public static void main(String[] args) throws Exception {
