@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class 백준_1967 {
 
     static int n;
-//    static int[][] map;
+    //    static int[][] map;
 //    static ArrayList<Integer>[] line;
     static List<Node>[] map;
     static int max;
