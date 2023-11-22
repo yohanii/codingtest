@@ -7,7 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class Main {
+public class programmers_2023KAKAO_택배배달과수거하기 {
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
 
     public void solution() throws Exception {
         //전략 끝에서 부터 처리한다
@@ -15,8 +19,8 @@ public class Main {
         //stack이용
         int cap = 4;
         int n = 5;
-        int[] deliveries = new int[]{1,0,3,1,2};
-        int[] pickups = new int[]{0,3,0,4,0};
+        int[] deliveries = new int[]{1, 0, 3, 1, 2};
+        int[] pickups = new int[]{0, 3, 0, 4, 0};
 
         System.out.println(solve(cap, n, deliveries, pickups));
 
@@ -29,10 +33,10 @@ public class Main {
         Stack<List<Integer>> pickupStack = new Stack<>();
         for (int i = 0; i < n; i++) {
             if (deliveries[i] != 0) {
-                deliveryStack.add(List.of(i+1, deliveries[i]));
+                deliveryStack.add(List.of(i + 1, deliveries[i]));
             }
             if (pickups[i] != 0) {
-                pickupStack.add(List.of(i+1, pickups[i]));
+                pickupStack.add(List.of(i + 1, pickups[i]));
             }
         }
 
@@ -49,8 +53,8 @@ public class Main {
 //        System.out.println();
 
         while (!deliveryStack.isEmpty() || !pickupStack.isEmpty()) {
-            List<Integer> deliveryPop = new ArrayList<>(List.of(0,0));
-            List<Integer> pickupPop = new ArrayList<>(List.of(0,0));
+            List<Integer> deliveryPop = new ArrayList<>(List.of(0, 0));
+            List<Integer> pickupPop = new ArrayList<>(List.of(0, 0));
 
             if (!deliveryStack.isEmpty()) {
                 deliveryPop = deliveryStack.pop();
@@ -97,9 +101,5 @@ public class Main {
             stack.add(List.of(pop.get(0), amount - cap));
         }
     }
-
-
-    public static void main(String[] args) throws Exception {
-        new Main().solution();
-    }
 }
+
