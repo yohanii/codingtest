@@ -1,9 +1,15 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 
-
-public class Main {
+public class programmers_2023KAKAO_미로탈출명령어 {
 
     private static List<Direction> result = new ArrayList<>();
+
+    public static void main(String[] args) throws Exception {
+
+        new Main().solution();
+    }
 
     public void solution() {
         int n = 3;
@@ -146,9 +152,5 @@ public class Main {
     enum Direction {
         DOWN, LEFT, RIGHT, UP
     }
-
-    public static void main(String[] args) throws Exception {
-
-        new Main().solution();
-    }
 }
+
