@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_12851 {
     static int n, k;
     static int minTime, ableCount;
 
