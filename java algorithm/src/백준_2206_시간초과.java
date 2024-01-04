@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_2206_시간초과 {
 
     static int n, m;
     static int[][] graph;
