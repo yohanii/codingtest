@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_1167 {
     static int v;
     static List<Edge>[] map;
     static int maxCost;
