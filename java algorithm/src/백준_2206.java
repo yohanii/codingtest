@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_2206 {
 
     static int[][] map;
     static int[][][] visited;
