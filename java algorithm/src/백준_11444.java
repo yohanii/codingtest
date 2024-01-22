@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_11444 {
 
     private static final long MOD = 1000000007l;
 
