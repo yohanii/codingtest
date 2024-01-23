@@ -7,10 +7,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_13172 {
 
     private static final long X = 1000000007L;
-//    private static final long X = 11L;
+    //    private static final long X = 11L;
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
