@@ -5,106 +5,84 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Main {
 
-    static int[][] map;
-    static List<Integer>[] row;
-    static List<Integer>[] column;
-    static List<Integer>[] square;
-    static Queue<Pos> zero;
+    static String[] string1, string2;
+    static List<List<Integer>> sequences;
+
+    static List<List<Integer>> addLists;
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        map = new int[9][9];
-        row = new ArrayList[9];
-        column = new ArrayList[9];
-        square = new ArrayList[9];
-        zero = new LinkedList<>();
-        for (int i = 0; i < 9; i++) {
-            row[i] = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            column[i] = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            square[i] = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        }
+        string1 = br.readLine().split("");
+        string2 = br.readLine().split("");
 
-        for (int i = 0; i < 9; i++) {
-            String[] split = br.readLine().split("");
-            for (int j = 0; j < split.length; j++) {
-                map[i][j] = Integer.parseInt(split[j]);
-                row[i].remove((Integer) map[i][j]);
-                column[j].remove((Integer) map[i][j]);
-                square[3 * (i / 3) + j / 3].remove((Integer) map[i][j]);
+        //str2 한번씩 돌면서
+        //1. str1에 자기 문자 위치들 찾기
+        //2. 수열 리스트들에 넣을 수 있으면 넣고, 없으면 수열 리스트 만들기
+        //다 돌면 제일 긴 수열 리스트 출력
+        sequences = new ArrayList<>();
+        makeSequences();
 
-                if (map[i][j] == 0) {
-                    zero.add(new Pos(i, j));
-                }
+        int maxSize = Integer.MIN_VALUE;
+        List<Integer> maxSequence = null;
+        for (List<Integer> sequence : sequences) {
+            if (sequence.size() > maxSize) {
+                maxSize = sequence.size();
+                maxSequence = sequence;
             }
         }
-
-//        System.out.println("row");
-//        for (List<Integer> integers : row) {
-//            System.out.println(integers);
-//        }
-//
-//        System.out.println("column");
-//        for (List<Integer> integers : column) {
-//            System.out.println(integers);
-//        }
-//
-//        System.out.println("square");
-//        for (List<Integer> integers : square) {
-//            System.out.println(integers);
-//        }
-
-        List<Integer>[][] retain = new ArrayList[9][9];
-
-        for (Pos pos : zero) {
-            List<Integer> retainList = new ArrayList<>(row[pos.x]);
-            retainList.retainAll(column[pos.y]);
-            retainList.retainAll(square[3 * (pos.x / 3) + pos.y / 3]);
-            retain[pos.x][pos.y] = retainList;
+        System.out.println(maxSize);
+        for (Integer i : maxSequence) {
+            System.out.print(string1[i]);
         }
-
-        while (!zero.isEmpty()) {
-            Pos pos = zero.poll();
-//            System.out.println(pos.x + ", " + pos.y);
-//            System.out.println("retainList = " + retainList);
-
-            if (retain[pos.x][pos.y].size() == 1) {
-                Integer value = retain[pos.x][pos.y].get(0);
-                map[pos.x][pos.y] = value;
-                for (Pos other : zero) {
-                    if (other.x == pos.x || other.y == pos.y || 3 * (other.x / 3) + other.y / 3 == 3 * (pos.x / 3) + pos.y / 3) {
-                        retain[other.x][other.y].remove(value);
-                    }
-                }
-                continue;
-            }
-            zero.add(pos);
-        }
-
-        for (int[] ints : map) {
-            for (int anInt : ints) {
-                System.out.print(anInt);
-            }
-            System.out.println();
-        }
-
-
-//        System.out.println("success");
-
-
     }
 
-    class Pos {
-        int x;
-        int y;
+    private void makeSequences() {
+        for (int index = 0; index < string2.length; index++) {
+            String cur = string2[index];
+            List<Integer> indexs = new ArrayList<>();
+            for (int i = 0; i < string1.length; i++) {
+                if (string1[i].equals(cur)) {
+                    indexs.add(i);
+                }
+            }
 
-        public Pos(int x, int y) {
-            this.x = x;
-            this.y = y;
+//            System.out.println("cur = " + cur);
+//            System.out.println("indexs = " + indexs);
+
+            if (indexs.isEmpty()) {
+                continue;
+            }
+
+            addLists = new ArrayList<>();
+            for (List<Integer> sequence : sequences) {
+                addToSequence(sequence, indexs);
+            }
+            sequences.addAll(addLists);
+            sequences.add(new ArrayList<>(List.of(indexs.get(0))));
+        }
+    }
+
+    private static void addToSequence(List<Integer> sequence, List<Integer> indexs) {
+        if (sequence.isEmpty()) {
+            return;
+        }
+
+        Integer maxIndex = sequence.get(sequence.size() - 1);
+        for (Integer i : indexs) {
+            if (i > maxIndex) {
+                sequence.add(i);
+                return;
+            } else {
+                List<Integer> collect = sequence.stream()
+                        .filter(elem -> elem < i)
+                        .collect(Collectors.toList());
+                collect.add(i);
+                addLists.add(collect);
+            }
         }
     }
 
