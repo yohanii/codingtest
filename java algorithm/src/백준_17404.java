@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_17404 {
 
     static int n;
     static int[][] cost;
