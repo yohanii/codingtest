@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_1644 {
     static int n;
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
