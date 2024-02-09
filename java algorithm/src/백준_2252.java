@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-public class Main {
+public class 백준_2252 {
     static int n, m;
     static List<Integer>[] parent, child;
     static boolean[] visited;
