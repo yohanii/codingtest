@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_2623_메모리초과 {
     static int n, m;
     static Set<Integer>[] parent, child;
     static boolean[] visited;
@@ -28,7 +28,6 @@ public class Main {
             child[i] = new HashSet<>();
         }
 
-        //parent, child 따로 저장하지 말고, 그냥 input arr 형태로 저장해두고, index만 기억해두고 사용해봐야하나?
         int[] input = new int[n];
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
