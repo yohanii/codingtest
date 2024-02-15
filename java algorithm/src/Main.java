@@ -7,118 +7,94 @@ import java.util.*;
 
 public class Main {
 
-    static int n;
-    static List<Edge> edges;
-    static List<Node> nodes;
-    static int[] parent;
-    static double totalDistance;
+    static int t, n;
+    static int[] goal;
+    static List<Integer> save;
+    static int[] visited;
+    static int count;
+
+    static int[] finished;
 
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
 
-        n = Integer.parseInt(br.readLine());
-        parent = new int[n];
-        nodes = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
+        t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            n = Integer.parseInt(br.readLine());
+            goal = new int[n + 1];
             st = new StringTokenizer(br.readLine());
-            double inputX = Double.parseDouble(st.nextToken());
-            double inputY = Double.parseDouble(st.nextToken());
-            nodes.add(new Node(i, inputX, inputY));
-            parent[i] = i;
-        }
-
-        edges = new ArrayList<>();
-        for (int i = 0; i < n-1; i++) {
-            for (int j = i+1; j < n; j++) {
-                edges.add(new Edge(nodes.get(i), nodes.get(j)));
+            for (int i = 1; i < n + 1; i++) {
+                goal[i] = Integer.parseInt(st.nextToken());
             }
-        }
-        Collections.sort(edges);
-//        System.out.println(edges);
 
-        totalDistance = 0;
-        for (Edge edge : edges) {
-            union(edge);
-        }
-        totalDistance = Math.round(totalDistance * 100) / 100.0;
-        System.out.println(totalDistance);
-
-
-
-    }
-
-    class Edge implements Comparable<Edge>{
-        Node start;
-        Node end;
-        double weight;
-
-        public Edge(Node start, Node end) {
-            this.start = start;
-            this.end = end;
-            this.weight = end.getDistance(start);
-        }
-
-        @Override
-        public int compareTo(Edge edge) {
-            if (weight - edge.weight < 0) {
-                return -1;
+            count = 0;
+            finished = new int[n + 1];
+            visited = new int[n + 1];
+            for (int i = 1; i < n + 1; i++) {
+                save = new ArrayList<>();
+                find(i);
             }
-            return 1;
-        }
 
-        @Override
-        public String toString() {
-            return "[" + start.index + "," + end.index + "," + weight + "]";
+//            int count = 0;
+//            for (int i : visited) {
+////                System.out.print(i + " ");
+//                if (i == 2) {
+//                    count++;
+//                }
+//            }
+//            System.out.println();
+//            System.out.println(count);
+            sb.append(n - count).append("\n");
         }
+        System.out.println(sb);
+
+
     }
 
-    class Node {
-        int index;
-        double x;
-        double y;
-
-        public Node(int index, double x, double y) {
-            this.index = index;
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getDistance(Node node) {
-            return Math.sqrt(Math.pow(node.x - x, 2) + Math.pow(node.y - y, 2));
-        }
-
-        @Override
-        public String toString() {
-            return "[" + x + "," + y + "]";
-        }
-    }
-
-    public int find(int index) {
-        if (parent[index] == index) {
-            return index;
-        }
-
-        return parent[index] = find(parent[index]);
-    }
-
-    public void union(Edge edge) {
-//        System.out.println("edge = " + edge);
-        int start = edge.start.index;
-        int end = edge.end.index;
-//        System.out.println("find(start) = " + find(start));
-//        System.out.println("find(end) = " + find(end));
-        if (find(start) == find(end)) {
+    public void find(int index) {
+        if (visited[index] != 0) {
             return;
         }
+        visited[index] = 1;
 
-        parent[find(end)] = find(start);
-        totalDistance += edge.weight;
-//        for (int i : parent) {
-//            System.out.print("parent: ");
-//            System.out.print(i + " ");
+        if (visited[goal[index]] == 0) {
+            find(goal[index]);
+        } else if (finished[goal[index]] == 0) {
+            count++;
+            for (int i = goal[index]; i!=index; i = goal[i]) {
+                count++;
+            }
+//            System.out.println("count = " + count);
+        }
+        finished[index] = 1;
+    }
+
+//    public void find(int index) {
+//        if (visited[index] != 0) {
+//            fillVisitedOfSave(save, 2);
+//            return;
 //        }
-//        System.out.println();
+//        if (goal[index] == index) {
+//            visited[index] = 1;
+//            fillVisitedOfSave(save, 2);
+//            return;
+//        }
+//
+//        save.add(index);
+//        if (save.contains(goal[index])) {
+//            int pos = save.indexOf(goal[index]);
+//            fillVisitedOfSave(save.subList(0, pos), 2);
+//            fillVisitedOfSave(save.subList(pos, save.size()), 1);
+//            return;
+//        }
+//
+//        find(goal[index]);
+//    }
+
+    private static void fillVisitedOfSave(List<Integer> save, int x) {
+        save.forEach(i -> visited[i] = x);
     }
 
     public static void main(String[] args) throws Exception {
