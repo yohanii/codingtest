@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-public class Main {
+public class 백준_16724 {
     static int n, m;
     static int[][] visited;
     static String[][] map;
@@ -15,8 +15,6 @@ public class Main {
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
-        //한 곳에 박히거나
-        //사이클 돌거나
         st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
@@ -40,11 +38,9 @@ public class Main {
     }
 
     public void find(int x, int y, int stack) {
-//        System.out.println("cur x, y = " + x + ", " + y);
 
         if (visited[x][y] != 0) {
             if (visited[x][y] == stack) {
-//                System.out.println("case1 x, y = " + x + ", " + y);
                 count++;
             }
             return;
@@ -72,11 +68,6 @@ public class Main {
                 newY = y + 1;
                 break;
         }
-//        if (newX < 0 || newX >= n || newY < 0 || newY >= m) {
-////            System.out.println("case2 x, y = " + x + ", " + y);
-//            count++;
-//            return;
-//        }
         find(newX, newY, stack);
     }
 
