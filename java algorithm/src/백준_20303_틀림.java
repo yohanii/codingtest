@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-public class Main {
+public class 백준_20303_틀림 {
     static int n, m, k;
     static List<Group> groups;
     static int maxValue;
