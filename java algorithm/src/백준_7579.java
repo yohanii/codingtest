@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-public class Main {
+public class 백준_7579 {
 
     static int n, m;
     static int[] memory, cost;
