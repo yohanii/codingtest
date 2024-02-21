@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-public class Main {
+public class 백준_1005 {
 
     static List<Integer>[] parent;
     static int[] dp, d;
