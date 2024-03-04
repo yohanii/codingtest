@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_2166 {
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -18,7 +18,7 @@ public class Main {
         //반복 후 넓이 절대값 구해줌
         int n = Integer.parseInt(br.readLine());
 
-        long[][] pos = new long[n + 1][2];
+        int[][] pos = new int[n + 1][2];
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             pos[i][0] = Integer.parseInt(st.nextToken());
