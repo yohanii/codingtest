@@ -7,8 +7,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_9252_메모리초과 {
 
+    static String first, second;
     static Map<Character, List<Integer>> map;
 
     public void solution() throws IOException {
@@ -18,80 +19,62 @@ public class Main {
         //recursive
         //last index와 선택된 수열 parameter
         //끝나면 수열 길이 반환
-        String first = br.readLine();
-        String second = br.readLine();
+        first = br.readLine();
+        second = br.readLine();
 
-        String result1 = getResult(first, second);
-        String result2 = getResult(second, first);
-//        System.out.println("result1 = " + result1);
-//        System.out.println("result2 = " + result2);
-
-        if (result1.length() >= result2.length()) {
-            System.out.println(result1.length());
-            System.out.println(result1);
-            return;
-        }
-        System.out.println(result2.length());
-        System.out.println(result2);
-
-
-    }
-
-    private String getResult(String first, String second) {
         //find에 걸리는 시간 줄이기 위해
         //second word들의 first index값 map에 저장
         map = new HashMap<>();
         saveMap(first, second, map);
 //        System.out.println(map);
 
-        Map<Character, Word> dp = new HashMap<>();
+        Map<Character, Integer> visited = new HashMap<>();
+        List<Word> words = new ArrayList<>();
         for (int i = 0; i < second.length(); i++) {
-            char secondChar = second.charAt(i);
+            visited.put(second.charAt(i), visited.getOrDefault(second.charAt(i), 0) + 1);
+            int firstIndex = find(0, i);
+            boolean status = true;
 
-            //dp 돌면서 secondChar이 붙을 수 있는 것 중 가장 긴 것 골라서, Word 업데이트
-            //붙을 수 있는 것 아무것도 없을 시 한 문자 put
-            int maxLength = 0;
-            String maxString = "";
-            int maxIndex = -1;
-            for (Character c : dp.keySet()) {
-                Word word = dp.get(c);
-                int lastIndex = word.lastIndex;
-                String wordStr = word.str;
-
-                if (wordStr.length() + 1 <= maxLength) {
-                    continue;
-                }
-
-                int findIndex = find(lastIndex + 1, i, second);
+            List<Word> addWords = new ArrayList<>();
+            for (Word word : words) {
+                int findIndex = find(word.lastIndex + 1, i);
                 if (findIndex == -1) {
                     continue;
                 }
 
-                maxLength = wordStr.length() + 1;
-                maxString = wordStr + secondChar;
-                maxIndex = findIndex;
-            }
+//                System.out.println("findIndex = " + findIndex);
+//                System.out.println("firstIndex = " + firstIndex);
+                if (findIndex < firstIndex) {
+                    status = false;
+                }
 
-            if (maxLength == 0) {
-                if (!dp.containsKey(secondChar)) {
-                    dp.put(secondChar, new Word(find(0, i, second), "" + secondChar));
-//                    System.out.println(dp);
-                    continue;
-                } else {
-//                    System.out.println(dp);
+                if (findIndex == word.lastIndex + 1) {
+                    word.lastIndex = findIndex;
+                    word.str += second.charAt(i);
                     continue;
                 }
+                addWords.add(new Word(findIndex, word.str + second.charAt(i)));
             }
 
-            dp.put(secondChar, new Word(maxIndex, maxString));
-//            System.out.println(dp);
+            words.addAll(addWords);
+            if (visited.get(second.charAt(i)) <= 1 && status) {
+                words.add(new Word(firstIndex, "" + second.charAt(i)));
+            }
+//            System.out.println("words = " + words);
         }
 
-        String result = dp.values().stream()
-                .map(w -> w.str)
-                .max(Comparator.comparingInt(String::length))
-                .get();
-        return result;
+
+        int maxLength = 0;
+        String maxString = "";
+        for (Word word : words) {
+            if (word.str.length() > maxLength) {
+                maxLength = word.str.length();
+                maxString = word.str;
+            }
+        }
+        System.out.println(maxLength);
+        System.out.println(maxString);
+
     }
 
     class Word {
@@ -129,7 +112,7 @@ public class Main {
         }
     }
 
-    private int find(int firstIndex, int secondIndex, String second) {
+    private int find(int firstIndex, int secondIndex) {
         char word = second.charAt(secondIndex);
         List<Integer> indexs = map.get(word);
         for (Integer index : indexs) {
