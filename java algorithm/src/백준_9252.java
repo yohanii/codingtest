@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_9252 {
 
     static int[][] dp;
     static String first, second;
