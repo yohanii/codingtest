@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_14503 {
     static int[] dx = new int[]{-1, 0, 1, 0};
     static int[] dy = new int[]{0, 1, 0, -1};
     public void solution() throws IOException {
