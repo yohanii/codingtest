@@ -7,12 +7,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_14888 {
 
     static int n;
     static int[] nums, operators;
     static int minValue, maxValue;
     public void solution() throws IOException {
+
+        //30m 19s
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
