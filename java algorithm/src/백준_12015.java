@@ -9,13 +9,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_12015 {
 
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
+        //시간초과
+        //LIS 사용해야한다.
         int n = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
 
