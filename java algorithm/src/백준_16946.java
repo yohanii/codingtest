@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Main {
+public class 백준_16946 {
 
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
@@ -30,7 +30,8 @@ public class Main {
 
         //3번방법
         //1. nxm 돌면서 visited = false이고, 0인 지점에서 dfs 시작
-        //2. dfs로 0의 갯수 먼저 세고, dfs한번 더 돌면서 벽에 더해줌
+        //2. dfs로 0의 갯수 먼저 세고, 동시에 벽 위치를 set에 저장
+        //3. set에 저장된 pos에 zeroCount 더해주기
         st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
