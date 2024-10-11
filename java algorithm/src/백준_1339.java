@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_1339 {
 
     public void solution() throws IOException {
 
