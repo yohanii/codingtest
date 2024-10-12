@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+public class 백준_1941 {
 
     static int count;
     static String[][] map;
